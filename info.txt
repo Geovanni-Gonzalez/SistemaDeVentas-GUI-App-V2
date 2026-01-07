@@ -1,7 +1,0 @@
-Nombre del curso: Taller de Programacion
-Número de semestre y año lectivo: 1 Semestre 2026
-Nombre del Estudiante: Geovanni Gonzalez Aguilar
-Número de carné del estudiante: 2022163324
-Número del proyecto programado: 3
-Fecha de entrega: 27 de Noviembre
-Estatus de la entrega: Excelente

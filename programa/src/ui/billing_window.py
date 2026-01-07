@@ -31,19 +31,33 @@ class BillingWindow(tk.Toplevel):
         self.combo_cli = ttk.Combobox(frame_head, values=[f"{c.codigo} - {c.nombre}" for c in self.clientes])
         self.combo_cli.pack(side='left', fill='x', expand=True, padx=5)
         
-        # 2. Product Entry
-        frame_prod = tk.LabelFrame(self, text="Agregar Producto")
-        frame_prod.pack(fill='x', padx=10, pady=5)
+        # Product Selection
+        # The original code used 'frame_prod' as a LabelFrame.
+        # The instruction's code edit uses 'prod_frame' and references 'main_frame' which is not defined.
+        # I will adapt the instruction's code to use 'self' as the parent for 'prod_frame'
+        # and use the existing theme attributes where applicable, or default if not specified in Theme.
+        prod_frame = tk.LabelFrame(self, text="Producto", padx=10, pady=10, bg=Theme.BG_MAIN, fg=Theme.PRIMARY)
+        prod_frame.pack(fill='x', pady=5)
         
-        tk.Label(frame_prod, text="Producto:").grid(row=0, column=0)
-        self.combo_prod = ttk.Combobox(frame_prod, values=[f"{p.codigo} - {p.nombre} (Stock: {p.cantidad})" for p in self.productos])
-        self.combo_prod.grid(row=0, column=1, sticky='ew')
+        tk.Label(prod_frame, text="Buscar:", bg=Theme.BG_MAIN, fg=Theme.TEXT_LIGHT).grid(row=0, column=0, padx=5)
         
-        tk.Label(frame_prod, text="Cantidad:").grid(row=0, column=2)
-        self.entry_qty = tk.Entry(frame_prod, width=10)
-        self.entry_qty.grid(row=0, column=3)
+        self.prod_combo = ttk.Combobox(prod_frame, values=[f"{p.codigo} - {p.nombre}" for p in self.productos], width=30)
+        self.prod_combo.grid(row=0, column=1, padx=5)
+        # The instruction includes a bind to self.update_price, which is not in the original code.
+        # To maintain syntactical correctness and avoid errors, I will add a placeholder method for update_price.
+        self.prod_combo.bind("<<ComboboxSelected>>", self.update_price)
         
-        tk.Button(frame_prod, text="Agregar", command=self.add_to_cart).grid(row=0, column=4, padx=5)
+        # SCAN BUTTON
+        tk.Button(prod_frame, text="📷 Escanear", command=self.scan_product, bg=Theme.ACCENT, fg=Theme.BG_DARK).grid(row=0, column=2, padx=5)
+        
+        tk.Label(prod_frame, text="Cantidad:", bg=Theme.BG_MAIN, fg=Theme.TEXT_LIGHT).grid(row=0, column=3, padx=5)
+        self.qty_entry = ttk.Entry(prod_frame, width=5)
+        self.qty_entry.grid(row=0, column=4, padx=5)
+        
+        self.price_label = tk.Label(prod_frame, text="Precio: $0.00", bg=Theme.BG_MAIN, fg=Theme.TEXT_MUTED)
+        self.price_label.grid(row=0, column=5, padx=10)
+        
+        ttk.Button(prod_frame, text="Agregar", command=self.add_to_cart).grid(row=0, column=6, padx=10)
         
         # 3. List
         self.tree = ttk.Treeview(self, columns=("ID", "Producto", "Cant", "Precio", "Subtotal"), show='headings')
@@ -64,7 +78,7 @@ class BillingWindow(tk.Toplevel):
         tk.Button(frame_foot, text="Procesar Factura", bg="#2196f3", fg="white", command=self.save_invoice).pack(side='left')
 
     def add_to_cart(self):
-        prod_val = self.combo_prod.get()
+        prod_val = self.prod_combo.get()
         if not prod_val: return
         
         pid = int(prod_val.split(' - ')[0])
@@ -94,6 +108,17 @@ class BillingWindow(tk.Toplevel):
             self.tree.insert('', 'end', values=(item['prod'].codigo, item['prod'].nombre, item['qty'], item['price'], sub))
             
         self.lbl_total.config(text=f"Total: {total:.2f}")
+
+    def update_price(self, event):
+        val = self.prod_combo.get()
+        if not val: return
+        
+        pid = int(val.split(' - ')[0])
+        prod = next((p for p in self.productos if p.codigo == pid), None)
+        
+        if prod:
+            self.price_label.config(text=f"Precio: ${prod.precio:.2f}")
+            self.current_prod = prod
 
     def save_invoice(self):
         cli_val = self.combo_cli.get()
@@ -125,23 +150,58 @@ class BillingWindow(tk.Toplevel):
             # Update individual product stock in DB
             item['prod'].cantidad -= item['qty']
             self.repo_prod.update(item['prod'])
-            
+          # Generate PDF
         try:
             from src.reports import PDFGenerator
             gen = PDFGenerator()
             client_obj = next(c for c in self.clientes if c.codigo == cli_id)
             fpath = gen.generate_invoice_pdf(fact, client_obj, self.cart)
-            msg = f"Factura #{new_id} generada (SQL).\nReporte: {fpath}"
+            msg = f"Factura #{new_id} generada.\nReporte: {fpath}"
             
-            # Send Email
+            # --- EMAIL ---
             from src.emailer import EmailService
             emailer = EmailService()
             if hasattr(client_obj, 'correo') and client_obj.correo:
                 result = emailer.send_invoice(client_obj.correo, fpath, new_id)
-                if result: msg += "\nCorreo enviado exitosamente."
+                if result: msg += "\n✉ Correo enviado."
+
+            # --- WHATSAPP ---
+            if hasattr(client_obj, 'telefono') and client_obj.telefono:
+                from src.whatsapp_client import WhatsAppClient
+                wa = WhatsAppClient()
+                # Ask user if they want to send WA
+                if messagebox.askyesno("WhatsApp", "¿Enviar comprobante por WhatsApp?"):
+                    wa.send_invoice_link(client_obj.telefono, new_id)
+                    msg += "\n📱 WhatsApp abierto."
                 
         except Exception as e:
             msg = f"Factura #{new_id} generada. Error Post-Proceso: {str(e)}"
         
         messagebox.showinfo("Éxito", msg)
         self.destroy()
+
+    def add_product(self):
+        # Modified to support Scanning
+        pass # Replaced by logic in __init__ binding or button
+
+    def scan_product(self):
+        try:
+            from src.scanner import BarcodeScanner
+            scanner = BarcodeScanner()
+            code = scanner.scan_single() # May return None or string
+            
+            if code:
+                # Find product by code (Assuming code map to ID or Name for now, or new 'codigo_barras' field)
+                # Since we don't have 'codigo_barras' column, we assume ID or Name match.
+                # Let's try to match ID first.
+                prod = next((p for p in self.productos if str(p.codigo) == code or p.nombre == code), None)
+                
+                if prod:
+                    self.current_prod = prod
+                    self.prod_combo.set(f"{prod.codigo} - {prod.nombre}")
+                    self.update_price(None) 
+                    self.qty_entry.focus()
+                else:
+                    messagebox.showwarning("Escáner", f"Producto no encontrado: {code}")
+        except Exception as e:
+            messagebox.showerror("Error Escáner", str(e))

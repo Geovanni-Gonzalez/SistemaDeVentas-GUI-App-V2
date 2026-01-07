@@ -145,10 +145,25 @@ class MainMenu:
         # Actions
         act_frame = ttk.Frame(self.container)
         act_frame.pack(fill='x', pady=20)
-        ttk.Label(act_frame, text="Accesos Rápidos", style="H2.TLabel").pack(anchor='w', pady=(0, 10))
         
-        ttk.Button(act_frame, text="Nueva Venta", command=self.open_billing).pack(side='left', padx=10)
-        ttk.Button(act_frame, text="Reabastecer (Orden)", command=self.open_orders).pack(side='left', padx=10)
+        ttk.Button(act_frame, text="Nueva Venta", command=lambda: self.open_billing()).pack(side='left', padx=5, expand=True, fill='x')
+        ttk.Button(act_frame, text="Inventario", command=lambda: self.open_crud("Producto")).pack(side='left', padx=5, expand=True, fill='x')
+        # Sync Button
+        ttk.Button(act_frame, text="☁ Sincronizar Nube", command=self.sync_cloud).pack(side='left', padx=5, expand=True, fill='x')
+        
+        ttk.Button(act_frame, text="Salir", style="Danger.TButton", command=self.root.destroy).pack(side='right', padx=5)
+
+    def sync_cloud(self):
+        try:
+            from src.cloud_sync import CloudSync
+            syncer = CloudSync()
+            success, msg = syncer.sync_sales_to_cloud()
+            if success:
+                messagebox.showinfo("Nube", msg)
+            else:
+                messagebox.showerror("Error Nube", msg)
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
 
     def create_card(self, parent, title, value, color):
         # removed col_idx arg as I am packing now in stats_frame? 
@@ -189,6 +204,25 @@ class MainMenu:
         from src.ui.search_window import SearchTransactionsWindow
         SearchTransactionsWindow(self.root, mode="INVOICE")
         
+    def open_crud(self, model_name):
+        from src.models import Categoria, Producto, Cliente, Proveedor
+        from src.ui.crud_frames import CategoriaFrame, ProductoFrame, ClienteFrame, ProveedorFrame
+        
+        frame_map = {
+            "Categorías": CategoriaFrame, "Categoria": CategoriaFrame,
+            "Productos": ProductoFrame, "Producto": ProductoFrame,
+            "Clientes": ClienteFrame, "Cliente": ClienteFrame,
+            "Proveedores": ProveedorFrame, "Proveedor": ProveedorFrame
+        }
+        
+        # Determine title (if singular passed, make plural/readable)
+        title = model_name
+        
+        if model_name in frame_map:
+            self.show_module(f"Gestión de {model_name}", frame_map[model_name])
+        else:
+            messagebox.showerror("Error", f"Módulo desconocido: {model_name}")
+
     def open_search_orders(self):
         from src.ui.search_window import SearchTransactionsWindow
         SearchTransactionsWindow(self.root, mode="ORDER")
@@ -209,13 +243,13 @@ class MainMenu:
             
             gen = PDFGenerator()
             if rtype == 'INVOICES':
-                repo = Repository("facturas.txt")
-                items = repo.load_all(Factura.from_string)
+                repo = Repository("facturas")
+                items = repo.load_all(Factura.from_row)
                 data = [[i.codigo, i.fecha, i.cliente_id, f"{i.total:.2f}"] for i in items]
                 path = gen.generate_list_report("Reporte de Facturas", ["ID", "Fecha", "Cliente", "Total"], data, "Reporte_Facturas")
             else:
-                repo = Repository("ordenes.txt")
-                items = repo.load_all(OrdenCompra.from_string)
+                repo = Repository("ordenes")
+                items = repo.load_all(OrdenCompra.from_row)
                 data = [[i.codigo, i.fecha, i.proveedor_id, f"{i.total:.2f}"] for i in items]
                 path = gen.generate_list_report("Reporte de Órdenes", ["ID", "Fecha", "Prov", "Total"], data, "Reporte_Ordenes")
             

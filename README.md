@@ -2,7 +2,7 @@
 
 **Estudiante:** [Tu Nombre Completo]
 **ID Estudiante:** [Tu ID]
-**Estado del Proyecto:** ⭐ Superior (Innovación AI Completa)
+**Estado del Proyecto:** 🏆 Finalizado (V2 Ultra - Full Features)
 
 ## 📋 Descripción
 
@@ -27,14 +27,22 @@ Sistema de Gestión de Ventas e Inventario desarrollado en Python con Tkinter. E
 - **Envío de Correos**: El sistema envía la factura .pdf al correo del cliente al instante.
 - **Logging**: Sistema de registro de errores en `logs/` para soporte técnico.
 
+### 4. Hiper-Conectividad (Fase 5) 🌐
+
+- **Escáner de Código de Barras**: Integración con cámara web para lectura de productos en tiempo real (con modo manual de respaldo).
+- **WhatsApp**: Comunicación automática con clientes para envío de comprobantes.
+- **Sincronización Nube**: Exportación diaria de ventas compatible con Google Sheets.
+
 ## 🛠️ Tecnologías
 
 - **Lenguaje**: Python 3.1x
 - **GUI**: Tkinter + TTK (Tema Moderno)
 - **Base de Datos**: SQLite3
 - **Visualización**: Matplotlib (Dashboard)
+- **Hardware**: OpenCV + Pyzbar (Escáner)
 - **Reportes**: FPDF
 - **Email**: SMTP Lib
+- **Mensajería**: WhatsApp Web API
 
 ## ⚙️ Instalación y Ejecución
 
@@ -65,3 +73,9 @@ Sistema de Gestión de Ventas e Inventario desarrollado en Python con Tkinter. E
 - `programa/data/`: Base de datos (`sistema_ventas.db`).
 - `documentacion/`: Manuales de Usuario y Técnico.
 - `logs/`: Registros de ejecución.
+
+## 📚 Documentación Técnica
+
+Para detalles profundos sobre la arquitectura, el esquema de base de datos y la implementación de IA/Escáner, consulta el manual técnico oficial:
+
+👉 **[Ver Documentación Técnica (Documentacion.md)](Documentacion.md)**

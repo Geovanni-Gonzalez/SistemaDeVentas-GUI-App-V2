@@ -20,11 +20,16 @@
             "FPDF",
             "SQLite3"
         ],
-        "database": "SQLite3 (sistema_ventas.db)"
+        "database": "SQLite3 (sistema_ventas.db)",
+        "phase5": {
+            "scanner": "OpenCV/Pyzbar Barcode Scanner",
+            "cloud": "Google Sheets CSV Sync",
+            "messaging": "WhatsApp Integration"
+        }
     },
     "screenshots": [],
     "description": {
-        "es": "Sistema de ventas con interfaz gráfica para administración de inventarios y facturación.",
-        "en": "Sales system with GUI for inventory management and billing."
+        "es": " Sistema de ventas con arquitectura SQL, motor de Inteligencia Artificial para predicción de stock, y notificaciones automatizadas por correo.",
+        "en": " Sales system with SQL architecture, AI prediction engine for stock, and automated email notifications."
     }
 }
