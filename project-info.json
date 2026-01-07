@@ -1,0 +1,30 @@
+```json
+{
+    "name": "Sistema de Ventas V2 Ultra",
+    "description": "Sistema avanzado de gestión de ventas con arquitectura SQL, motor de Inteligencia Artificial para predicción de stock, y notificaciones automatizadas por correo.",
+    "version": "2.1.0",
+    "technologies": [
+        "Python 3.10",
+        "Tkinter/TTK",
+        "SQLite3",
+        "Matplotlib (Data Viz)",
+        "FPDF (Reporting)",
+        "SMTP (Email)",
+        "Linear Regression (AI)"
+    ],
+    "features": {
+        "language": "Python 3",
+        "framework": "Tkinter",
+        "tools": [
+            "Matplotlib",
+            "FPDF",
+            "SQLite3"
+        ],
+        "database": "SQLite3 (sistema_ventas.db)"
+    },
+    "screenshots": [],
+    "description": {
+        "es": "Sistema de ventas con interfaz gráfica para administración de inventarios y facturación.",
+        "en": "Sales system with GUI for inventory management and billing."
+    }
+}
