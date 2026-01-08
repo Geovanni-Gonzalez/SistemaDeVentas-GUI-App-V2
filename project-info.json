@@ -1,35 +1,58 @@
-```json
 {
-    "name": "Sistema de Ventas V2 Ultra",
-    "description": "Sistema avanzado de gestión de ventas con arquitectura SQL, motor de Inteligencia Artificial para predicción de stock, y notificaciones automatizadas por correo.",
-    "version": "2.1.0",
-    "technologies": [
-        "Python 3.10",
-        "Tkinter/TTK",
-        "SQLite3",
-        "Matplotlib (Data Viz)",
-        "FPDF (Reporting)",
-        "SMTP (Email)",
-        "Linear Regression (AI)"
-    ],
-    "features": {
-        "language": "Python 3",
-        "framework": "Tkinter",
-        "tools": [
-            "Matplotlib",
-            "FPDF",
-            "SQLite3"
+    "en": {
+        "tech": [
+            "Python 3.10",
+            "Tkinter/TTK",
+            "SQLite3",
+            "Linear Regression (AI)",
+            "SMTP"
         ],
-        "database": "SQLite3 (sistema_ventas.db)",
-        "phase5": {
-            "scanner": "OpenCV/Pyzbar Barcode Scanner",
-            "cloud": "Google Sheets CSV Sync",
-            "messaging": "WhatsApp Integration"
-        }
+        "features": [
+            "SQL-based sales and inventory management",
+            "AI stock prediction engine using linear regression",
+            "Automated email notifications and reporting (FPDF)",
+            "Data visualization with Matplotlib",
+            "Barcode scanning integration (OpenCV/Pyzbar)"
+        ],
+        "stack": {
+            "language": "Python",
+            "framework": "Tkinter",
+            "tools": [
+                "Matplotlib",
+                "FPDF",
+                "OpenCV"
+            ],
+            "database": "SQLite3"
+        },
+        "screenshots": [],
+        "description": "The ultimate evolution of retail management software, this system integrates traditional ERP functionalities with modern AI insights. Built with a robust SQLite backend, it employs linear regression models to analyze sales trends and predict future stock requirements, preventing shortages and overstock. The platform also automates client communication via SMTP, generates professional PDF invoices, and includes a full-featured barcode scanner module, providing a comprehensive solution for modern business orchestration."
     },
-    "screenshots": [],
-    "description": {
-        "es": " Sistema de ventas con arquitectura SQL, motor de Inteligencia Artificial para predicción de stock, y notificaciones automatizadas por correo.",
-        "en": " Sales system with SQL architecture, AI prediction engine for stock, and automated email notifications."
+    "es": {
+        "tech": [
+            "Python 3.10",
+            "Tkinter/TTK",
+            "SQLite3",
+            "Regresión Lineal (IA)",
+            "SMTP"
+        ],
+        "features": [
+            "Gestión de ventas e inventario basada en SQL",
+            "Motor de predicción de stock mediante regresión lineal",
+            "Notificaciones automatizadas por correo y reporte (FPDF)",
+            "Visualización de datos con Matplotlib",
+            "Integración de escaneo de códigos de barras (OpenCV)"
+        ],
+        "stack": {
+            "language": "Python",
+            "framework": "Tkinter",
+            "tools": [
+                "Matplotlib",
+                "FPDF",
+                "OpenCV"
+            ],
+            "database": "SQLite3"
+        },
+        "screenshots": [],
+        "description": "La evolución definitiva del software de gestión minorista, este sistema integra funcionalidades tradicionales de ERP con análisis de IA modernos. Construido con un robusto motor SQLite, emplea modelos de regresión lineal para analizar tendencias de ventas y predecir requisitos futuros de stock, evitando desabastos y sobreinventarios. La plataforma también automatiza la comunicación con clientes vía SMTP, genera facturas profesionales en PDF e incluye un módulo de escaneo de códigos de barras, proporcionando una solución integral."
     }
 }
