@@ -1,81 +1,74 @@
-# Sistema de Ventas con IA (V2 Ultra)
+﻿# Sistema de Ventas GUI App V2
 
-**Estudiante:** [Tu Nombre Completo]
-**ID Estudiante:** [Tu ID]
-**Estado del Proyecto:** 🏆 Finalizado (V2 Ultra - Full Features)
+## Descripción
+Segunda versión de sistema de ventas en Python con GUI, SQLite, analitica, reportes, sincronización/exportacion y módulos de comunicación.
 
-## 📋 Descripción
+## Objetivo
+Evoluciónar un sistema de ventas desde archivos planos hacia base de datos y servicios complementarios.
 
-Sistema de Gestión de Ventas e Inventario desarrollado en Python con Tkinter. Esta versión "V2 Ultra" ha sido re-arquitectada profesionalmente para incluir bases de datos SQL, inteligencia artificial para predicción de stock y conectividad por correo electrónico.
+## Tecnologías utilizadas
+- Python 3
+- Tkinter
+- SQLite
+- CSV
+- Módulos de email/WhatsApp presentes en el código, pendientes de configuración documentada
 
-## 🚀 Características Clave
+## Funcionalidades principales
+- Autenticación y menu
+- CRUD y facturación
+- SQLite
+- Analitica/reportes
+- Exportacion CSV
 
-### 1. Gestión de Datos Profesional (SQL)
+## Mi rol
+Desarrollé la versión mejorada con base de datos, analitica, reportes y módulos auxiliares.
 
-- Migración completa de archivos de texto a **SQLite**.
-- Integridad referencial en todas las transacciones.
-- Soporte para miles de registros sin perdida de rendimiento.
+## Aprendizajes clave
+- SQLite
+- Sistemas desktop medianos
+- Reporteria
+- Servicios auxiliares
 
-### 2. Inteligencia Artificial (AI Analytics) 🤖
+## Instalación y ejecución
+```bash
+cd SistemaDeVentas-GUI-App-V2/programa
+python seed_data.py
+python main.py
+```
 
-- **Motor de Predicción**: Algoritmo de regresión lineal que analiza el historial de ventas.
-- **Smart Dashboard**: Alertas visuales que predicen cuándo se agotará un producto (e.g., "Agota en 3 días").
+## Estructura del proyecto
+- main.py: entrada
+- src/database.py/repository.py: persistencia
+- src/ui/: interfaz
+- analytics.py/reports.py: reportes
+- data/: base
 
-### 3. Conectividad y Reportes 📧
+## Capturas o demo
+![Captura principal](screenshots/principalImage.png)
 
-- **Generación de PDF**: Facturas profesionales generadas automáticamente.
-- **Envío de Correos**: El sistema envía la factura .pdf al correo del cliente al instante.
-- **Logging**: Sistema de registro de errores en `logs/` para soporte técnico.
+## Estado del proyecto
+Proyecto académico funcional/en mejora.
 
-### 4. Hiper-Conectividad (Fase 5) 🌐
+## Valor técnico demostrado
+Muestra evolución arquitectonica y persistencia relaciónal.
 
-- **Escáner de Código de Barras**: Integración con cámara web para lectura de productos en tiempo real (con modo manual de respaldo).
-- **WhatsApp**: Comunicación automática con clientes para envío de comprobantes.
-- **Sincronización Nube**: Exportación diaria de ventas compatible con Google Sheets.
+## Mejoras futuras
+- Documentar email/WhatsApp
+- Agregar migraciones
+- Probar consultas
 
-## 🛠️ Tecnologías
+## Autor
+Geovanni González  
+Estudiante de Ingeniería en Computación  
+GitHub: [Geovanni-Gonzalez](https://github.com/Geovanni-Gonzalez)
 
-- **Lenguaje**: Python 3.1x
-- **GUI**: Tkinter + TTK (Tema Moderno)
-- **Base de Datos**: SQLite3
-- **Visualización**: Matplotlib (Dashboard)
-- **Hardware**: OpenCV + Pyzbar (Escáner)
-- **Reportes**: FPDF
-- **Email**: SMTP Lib
-- **Mensajería**: WhatsApp Web API
 
-## ⚙️ Instalación y Ejecución
 
-1. **Requisitos**:
 
-    ```bash
-    pip install matplotlib fpdf
-    ```
 
-2. **Ejecutar**:
 
-    ```bash
-    python programa/main.py
-    ```
 
-3. **Credenciales**:
-    - **Usuario**: `admin`
-    - **Contraseña**: `admin`
 
-## 📂 Estructura del Proyecto
 
-- `programa/src/`: Código Fuente
-  - `analytics.py`: Motor de Inteligencia Artificial.
-  - `database.py`: Gestor de Base de Datos.
-  - `emailer.py`: Servicio de Correo.
-  - `models.py`: Modelos de Datos.
-  - `ui/`: Interfaz Gráfica.
-- `programa/data/`: Base de datos (`sistema_ventas.db`).
-- `documentacion/`: Manuales de Usuario y Técnico.
-- `logs/`: Registros de ejecución.
 
-## 📚 Documentación Técnica
 
-Para detalles profundos sobre la arquitectura, el esquema de base de datos y la implementación de IA/Escáner, consulta el manual técnico oficial:
-
-👉 **[Ver Documentación Técnica (Documentacion.md)](Documentacion.md)**
