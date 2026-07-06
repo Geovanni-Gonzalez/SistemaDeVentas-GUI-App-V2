@@ -1,5 +1,7 @@
 ﻿# Sistema de Ventas GUI App V2
 
+[![CI](https://github.com/Geovanni-Gonzalez/SistemaDeVentas-GUI-App-V2/actions/workflows/ci.yml/badge.svg)](https://github.com/Geovanni-Gonzalez/SistemaDeVentas-GUI-App-V2/actions/workflows/ci.yml)
+
 ## Descripción
 Segunda versión de sistema de ventas en Python con GUI, SQLite, analitica, reportes, sincronización/exportacion y módulos de comunicación.
 
