@@ -118,12 +118,14 @@ class DatabaseManager:
                 )
             ''')
             
-            # Check for default user
+            # Check for default user (contraseña almacenada como hash SHA-256)
             cursor.execute("SELECT * FROM usuarios WHERE username='admin'")
             if not cursor.fetchone():
+                import hashlib
+                default_hash = hashlib.sha256(b"admin").hexdigest()
                 cursor.execute("INSERT INTO usuarios (full_name, username, password) VALUES (?, ?, ?)",
-                               ("Administrador", "admin", "admin"))
-                log_info("Default admin user created.")
+                               ("Administrador", "admin", default_hash))
+                log_info("Default admin user created (hashed password).")
                 
             conn.commit()
             conn.close()

@@ -1,2 +1,3 @@
-Cristian Campos;ccampos;abc123
-Admin User;admin;admin
+# Archivo legado sin uso: las credenciales viven en la base de datos SQLite
+# (tabla `usuarios`, contraseñas hasheadas con SHA-256 — ver src/database.py y src/auth.py).
+# Usuario por defecto para desarrollo: admin / admin

@@ -1,5 +1,13 @@
+import hashlib
+
 from .repository import Repository
 from .models import Usuario
+
+
+def hash_password(password):
+    """Devuelve el hash SHA-256 (hex) de la contraseña en texto plano."""
+    return hashlib.sha256(password.encode("utf-8")).hexdigest()
+
 
 class AuthController:
     def __init__(self):
@@ -7,9 +15,8 @@ class AuthController:
 
     def login(self, username, password):
         users = self.repo.load_all(Usuario.from_row)
-        
+        hashed = hash_password(password)
         for user in users:
-            # Note: Model order is now Name, User, Pass
-            if user.username == username and user.password == password:
+            if user.username == username and user.password == hashed:
                 return user
         return None
