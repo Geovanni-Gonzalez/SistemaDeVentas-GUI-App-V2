@@ -1,4 +1,6 @@
-﻿# Sistema de Ventas GUI App V2
+# Sistema de Ventas GUI App V2
+
+> **Versión 2 de 2.** Refactor deliberado de [SistemaDeVentas--GUI-App](https://github.com/Geovanni-Gonzalez/SistemaDeVentas--GUI-App) (V1, persistencia en archivos planos) hacia SQLite con capa Repository, analítica y logging.
 
 [![CI](https://github.com/Geovanni-Gonzalez/SistemaDeVentas-GUI-App-V2/actions/workflows/ci.yml/badge.svg)](https://github.com/Geovanni-Gonzalez/SistemaDeVentas-GUI-App-V2/actions/workflows/ci.yml)
 
